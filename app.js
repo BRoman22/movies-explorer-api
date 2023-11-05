@@ -9,9 +9,9 @@ import errorHandler from './middlewares/errorHandler.js';
 import routes from './routes/index.js';
 
 const corsAllowedOrigins = [
-  // 'https://mesto.nomoredomainsrocks.ru',
-  // 'http://mesto.nomoredomainsrocks.ru',
-  // 'http://localhost:5173',
+  'https://movies-explorer.nomoredomainsmonster.ru',
+  'http://movies-explorer.nomoredomainsmonster.ru',
+  // 'http://localhost:3000',
 ];
 
 const app = express();
