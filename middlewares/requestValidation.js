@@ -1,5 +1,5 @@
 import { celebrate, Joi } from 'celebrate';
-import { httpRegex } from '../utils/constants';
+import { httpRegex } from '../utils/constants.js';
 
 export const createUserValidation = celebrate({
   body: Joi.object().keys({
