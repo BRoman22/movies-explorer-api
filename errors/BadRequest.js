@@ -1,6 +1,8 @@
+import statusCodes from './StatusCodes.js';
+
 export default class BadRequest extends Error {
   constructor(message) {
     super(message);
-    this.statusCode = 400;
+    this.statusCode = statusCodes.BadRequest;
   }
 }

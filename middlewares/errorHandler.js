@@ -1,7 +1,11 @@
+import statusCodes from '../errors/StatusCodes.js';
+import errMessages from '../errors/ErrorMessages.js';
+
 export default function errorHandler(err, req, res, next) {
-  const { statusCode = 500, message } = err;
+  const { statusCode = statusCodes.InternalServerError, message } = err;
   res.status(statusCode).send({
-    message: statusCode === 500 ? 'На сервере произошла ошибка' : message,
+    message:
+      statusCode === statusCodes.InternalServerError ? errMessages.internalServerError : message,
   });
   next();
 }

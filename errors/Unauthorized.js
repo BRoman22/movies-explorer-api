@@ -1,6 +1,10 @@
+import statusCodes from './StatusCodes.js';
+import errMessages from './ErrorMessages.js';
+
 export default class Unauthorized extends Error {
-  constructor(message) {
-    super(message);
-    this.statusCode = 401;
+  constructor() {
+    super();
+    this.statusCode = statusCodes.Unauthorized;
+    this.message = errMessages.unauthorized;
   }
 }

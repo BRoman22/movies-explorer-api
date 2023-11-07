@@ -1,23 +1,23 @@
 import { celebrate, Joi } from 'celebrate';
+import { httpRegex } from '../utils/constants';
 
-const httpRegex = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/;
-
-export const updateUserValidation = celebrate({
+export const createUserValidation = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
-  }),
-});
-
-export const loginValidation = celebrate({
-  body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),
 });
 
-export const createUserValidation = celebrate({
+export const updateUserValidation = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
+    name: Joi.string().required().min(2).max(30),
+    email: Joi.string().required().email(),
+  }),
+});
+
+export const loginValidation = celebrate({
+  body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),
@@ -40,5 +40,5 @@ export const createMovieValidation = celebrate({
 });
 
 export const checkMovieId = celebrate({
-  params: Joi.object().keys({ movieId: Joi.string().required().hex() }),
+  params: Joi.object().keys({ movieId: Joi.string().required().length(24).hex() }),
 });

@@ -1,6 +1,10 @@
+import statusCodes from './StatusCodes.js';
+import errMessages from './ErrorMessages.js';
+
 export default class TooManyRequests extends Error {
-  constructor(message) {
-    super(message);
-    this.statusCode = 429;
+  constructor() {
+    super();
+    this.statusCode = statusCodes.TooManyRequests;
+    this.message = errMessages.tooManyRequests;
   }
 }

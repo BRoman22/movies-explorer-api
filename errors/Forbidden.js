@@ -1,6 +1,8 @@
+import statusCodes from './StatusCodes.js';
+
 export default class Forbidden extends Error {
   constructor(message) {
     super(message);
-    this.statusCode = 403;
+    this.statusCode = statusCodes.Forbidden;
   }
 }
