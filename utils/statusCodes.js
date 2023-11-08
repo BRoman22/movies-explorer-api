@@ -1,4 +1,4 @@
-const StatusCodes = {
+const statusCodes = {
   Created: 201,
   BadRequest: 400,
   Unauthorized: 401,
@@ -10,4 +10,4 @@ const StatusCodes = {
   DuplicateMongo: 11000,
 };
 
-export default StatusCodes;
+export default statusCodes;

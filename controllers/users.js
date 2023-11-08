@@ -2,8 +2,8 @@ import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import User from '../models/user.js';
-import statusCodes from '../errors/StatusCodes.js';
-import errMessages from '../errors/ErrorMessages.js';
+import statusCodes from '../utils/statusCodes.js';
+import responseText from '../utils/responseText.js';
 import NotFound from '../errors/NotFound.js';
 import BadRequest from '../errors/BadRequest.js';
 import Conflict from '../errors/Conflict.js';
@@ -35,10 +35,10 @@ export const createUser = (req, res, next) => {
     })
     .catch((err) => {
       if (err instanceof ValidationError) {
-        return next(new BadRequest(errMessages.user.badRequestCreate));
+        return next(new BadRequest(responseText.error.badRequest.userCreate));
       }
       if (err.code === statusCodes.DuplicateMongo) {
-        return next(new Conflict(errMessages.user.conflict));
+        return next(new Conflict(responseText.error.conflict));
       }
       return next(err);
     });
@@ -51,15 +51,15 @@ export const updateCurrentUser = (req, res, next) => {
   })
     .then((user) => {
       if (!user) {
-        return next(new NotFound(errMessages.user.notFound));
+        return next(new NotFound(responseText.error.notFound.user));
       }
       return res.send(user);
     })
     .catch((err) => {
       if (err.name === 'CastError' || err.name === 'ValidationError') {
-        next(new BadRequest(errMessages.user.badRequestUpdate));
+        next(new BadRequest(responseText.error.badRequest.userUpdate));
       } else if (err.code === statusCodes.DuplicateMongo) {
-        next(new Conflict(errMessages.user.conflict));
+        next(new Conflict(responseText.error.conflict));
       } else {
         next(err);
       }
@@ -68,17 +68,16 @@ export const updateCurrentUser = (req, res, next) => {
 
 export const login = (req, res, next) => {
   const { email, password } = req.body;
-  if (!email) return next(new BadRequest(errMessages.auth.badRequest));
   return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, secretKey, { expiresIn: '7d' });
       res.cookie('jwtKey', token, jwtCookieConfig);
-      return res.send({ message: 'Вы вошли в свой аккаунт' });
+      return res.send({ message: responseText.message.userLogin });
     })
     .catch(next);
 };
 
 export const logout = (req, res) => {
   res.clearCookie('jwtKey');
-  return res.send({ message: 'Вы вышли из своего аккаунта' });
+  return res.send({ message: responseText.message.userLogout });
 };

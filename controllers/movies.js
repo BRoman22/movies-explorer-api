@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import Movie from '../models/movie.js';
-import statusCodes from '../errors/StatusCodes.js';
-import errMessages from '../errors/ErrorMessages.js';
+import statusCodes from '../utils/statusCodes.js';
+import responseText from '../utils/responseText.js';
 import NotFound from '../errors/NotFound.js';
 import Forbidden from '../errors/Forbidden.js';
 import BadRequest from '../errors/BadRequest.js';
@@ -22,7 +22,7 @@ export const createMovie = (req, res, next) => {
     .then((movie) => res.status(statusCodes.Created).send(movie))
     .catch((err) => {
       if (err instanceof ValidationError) {
-        next(new BadRequest(errMessages.movie.badRequestCreate));
+        next(new BadRequest(responseText.error.badRequest.movieCreate));
       }
       next(err);
     });
@@ -31,14 +31,14 @@ export const createMovie = (req, res, next) => {
 export const deleteMovie = (req, res, next) => {
   Movie.findById(req.params.movieId)
     .then((movie) => {
-      if (!movie) next(new NotFound(errMessages.movie.notFound));
-      if (movie.owner.valueOf() !== req.user._id) next(new Forbidden(errMessages.movie.forbidden));
+      if (!movie) next(new NotFound(responseText.error.notFound.movie));
+      if (movie.owner.valueOf() !== req.user._id) next(new Forbidden(responseText.error.forbidden));
       return Movie.deleteOne(movie)
-        .then(() => res.send({ message: 'Фильм удален' }))
+        .then(() => res.send({ message: responseText.message.movieDelete }))
         .catch(next);
     })
     .catch((err) => {
-      if (err.name === 'CastError') next(new BadRequest(errMessages.movie.badRequestDelete));
+      if (err.name === 'CastError') next(new BadRequest(responseText.error.badRequest.movieDelete));
       else next(err);
     });
 };

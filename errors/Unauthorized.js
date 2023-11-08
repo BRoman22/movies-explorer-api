@@ -1,10 +1,8 @@
-import statusCodes from './StatusCodes.js';
-import errMessages from './ErrorMessages.js';
+import statusCodes from '../utils/statusCodes.js';
 
 export default class Unauthorized extends Error {
-  constructor() {
-    super();
+  constructor(message) {
+    super(message);
     this.statusCode = statusCodes.Unauthorized;
-    this.message = errMessages.unauthorized;
   }
 }
