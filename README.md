@@ -24,8 +24,10 @@
 
 <h2>4. Ссылки на проект</h2>
 
-* Backend https://api.movies-explorer.nomoredomainsmonster.ru
+* <a href="https://api.movies-explorer.nomoredomainsmonster.ru">Backend</a>
 
-* Чеклист и кретирии оценки https://code.s3.yandex.net/web-developer/static/new-program/web-diploma-criteria-2.0/index.html#backend
+* <a href="https://github.com/BRoman22/movies-explorer-frontend">Репозиторий с frontend частью проекта</a>
 
-* Pull request https://github.com/BRoman22/movies-explorer-api/pull/2
+* <a href="https://code.s3.yandex.net/web-developer/static/new-program/web-diploma-criteria-2.0/index.html#backend">Чеклист и критерии оценки</a>
+
+* <a href="https://github.com/BRoman22/movies-explorer-api/pull/2">Pull request</a>
